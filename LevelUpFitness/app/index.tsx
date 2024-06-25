@@ -9,7 +9,14 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Hello World</Text>
+      <Text>Choose Your Discipline</Text>
+      <View>
+        <Text>Calistetics</Text>
+        <Text>Option 2</Text>
+        <Text>Option 3</Text>
+        <Text>Option 4</Text>
+        <Text>Option 5</Text>
+      </View>
     </View>
   );
 }
