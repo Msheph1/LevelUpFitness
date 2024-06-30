@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 
 export default function Index() {
   return (
@@ -11,7 +11,6 @@ export default function Index() {
     >
       <Text>Choose Your Discipline</Text>
       <View>
-        <Text>Calistetics</Text>
         <Text>Option 2</Text>
         <Text>Option 3</Text>
         <Text>Option 4</Text>
