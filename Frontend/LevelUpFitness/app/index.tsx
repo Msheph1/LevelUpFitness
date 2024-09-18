@@ -1,7 +1,17 @@
 import { Button, Text, TextInput, View, StyleSheet } from "react-native";
+import React, {useState} from "react"
 
 
  const Index = () => {
+  const [level, setLevel] = useState('10');
+  const [weight, setWeight] = useState('170');
+  const [weightUnits, setWeightUnits] = useState('LBs');
+  const [height, setHeight] = useState('69');
+  const [heightUnits, setHeightUnits] = useState('Inches');
+  const [bodyFat, setBodyFat] = useState('15');
+  const [exp, setExp] = useState(5360);
+
+
   return (
     <View
       style={{
@@ -9,7 +19,10 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
         alignItems: "center",
       }}
     >
+
+
       <Text>Level Up Fitness</Text>
+      <Text>Level: {level}</Text>
       <View>
       <svg width="200" height="400">
         <circle cx="100" cy="50" r="30" stroke="black" fill="none" />
@@ -34,8 +47,8 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
           flexDirection: 'row',
         }}>
           <Text>Weight</Text>
-          <TextInput style={styles.textInput}/>
-          <Text>Lbs</Text>
+          <TextInput style={styles.textInput} value={weight}/>
+          <Text>{weightUnits}</Text>
         </View>
         <View style={{
           paddingRight: 20,
@@ -43,8 +56,8 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
           flexDirection: 'row',
         }}>
           <Text>Height</Text>
-          <TextInput style={styles.textInput}/>
-          <Text>Inches</Text>
+          <TextInput style={styles.textInput} value={height}/>
+          <Text>{heightUnits}</Text>
         </View>
         <View style={{
           paddingRight: 20,
@@ -52,7 +65,7 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
           flexDirection: 'row',
         }}>
           <Text>Body Fat</Text>
-          <TextInput style={styles.textInput}/>
+          <TextInput style={styles.textInput} value={bodyFat}/>
           <Text>%</Text>
         </View>
       </View>
@@ -78,16 +91,15 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
               borderRadius: 10,
               overflow: 'hidden',
         }}>
-            <View style={[ 
+            <View style={[
                   {
                   height: '100%',
-                  backgroundColor: '#3b82f6'
+                  backgroundColor: '#3b82f6',
+                  
                   },
-                  {
-                  width: '50%',
-                  }]} />
+                  { width : `${exp/10000 * 100}%`}]} />
             </View>
-            <Text style={{textAlign: 'center'}}>5000</Text>
+            <Text style={{textAlign: 'center'}}>{exp}</Text>
           </View>
           <Text style={{marginLeft: 10}}>10000 EXP</Text>
         </View>
@@ -99,6 +111,7 @@ import { Button, Text, TextInput, View, StyleSheet } from "react-native";
 
   const styles = StyleSheet.create({
     textInput: {
+      textAlign: 'center',
       maxWidth: 50,
       borderWidth: 2,
       marginRight: 5,
