@@ -8,6 +8,9 @@ public class LevelupfitnessApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LevelupfitnessApplication.class, args);
+		ConnectDB dbconnection = new ConnectDB();
+		dbconnection.getConnection();
+		
 	}
 
 }

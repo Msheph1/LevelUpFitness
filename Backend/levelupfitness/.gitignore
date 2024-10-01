@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### extras ###
+dbstuff.txt
+application-dev.properties
