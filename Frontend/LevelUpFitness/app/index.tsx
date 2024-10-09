@@ -3,7 +3,9 @@ import React, { useState } from "react";
 
 const whenClicked = async () => {
   const result = await fetch("http://192.168.12.102:8080/hello");
-  console.log(await result.text());
+  const str = await result.text();
+  console.log(str);
+  alert(str);
 };
 
 const Index = () => {
