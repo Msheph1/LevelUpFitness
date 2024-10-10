@@ -28,9 +28,7 @@ public class LevelupfitnessApplication {
 
 		System.out.println("\n All Users ------------------------\n");
 		List<User> users = dao.list();
-		//users.forEach(System.out::println);
-		System.out.println(dao.get(2));
-		System.out.println(dao.get(10));
+		users.forEach(System.out::println);
 	}
 
 }

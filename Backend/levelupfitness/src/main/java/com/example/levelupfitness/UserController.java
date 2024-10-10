@@ -1,12 +1,15 @@
 package com.example.levelupfitness;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -19,12 +22,29 @@ public class UserController {
 		this.dao = dao;
 	}
     @CrossOrigin(origins = {"http://192.168.12.102:8081", "http://localhost:8081"})
-    @GetMapping("/hello") 
+    @GetMapping("/{userId}") 
     @ResponseBody
-    public String helloGFG() 
+    public User LoadUser(@PathVariable("userId") int id) 
     { 
-        List<User> users = dao.list();
-		users.forEach(System.out::println);
-        return users.get(1).getUsername(); 
+        
+        User selectedUser;
+        Optional<User> optional = dao.get(id);
+        selectedUser = optional.isPresent() ? optional.get() : null;
+        return selectedUser;
     } 
+
+    @CrossOrigin(origins = {"http://192.168.12.102:8081", "http://localhost:8081"})
+    @PostMapping("/{userId}/addexp/{amount}") 
+    @ResponseBody
+    public void addExp(@PathVariable("userId") int userId, @PathVariable("amount") int amount){
+        System.out.println("made it this far");
+        try {
+        User updatedUser = dao.get(userId).get();
+        updatedUser.setExp(updatedUser.getExp() + amount);
+        dao.update(updatedUser, userId);
+        }
+        catch(Exception e) {
+            System.out.println(e + "\n\n\nerrored out");
+        }
+    }
 }

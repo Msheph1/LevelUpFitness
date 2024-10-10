@@ -26,12 +26,13 @@ public class UserJdbcDAO implements DAO<User> {
         user.setUserId(rs.getInt("userid"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("upassword"));
+        user.setExp(rs.getInt("exp"));
         return user;
     };
 
     @Override
     public List<User> list() {
-        String sql = "SELECT userid, username, upassword from users";
+        String sql = "SELECT userid, username, upassword, exp from users";
         return jdbcTemplate.query(sql, rowMapper); 
     }
 
@@ -46,7 +47,7 @@ public class UserJdbcDAO implements DAO<User> {
 
     @Override
     public Optional<User> get(int id) {
-        String sql = "select userid, username, upassword from users where userid = ?";
+        String sql = "select userid, username, upassword, exp from users where userid = ?";
         User user = null;
         try {
             user = jdbcTemplate.queryForObject(sql, rowMapper, id);
@@ -58,8 +59,8 @@ public class UserJdbcDAO implements DAO<User> {
 
     @Override
     public void update(User user, int id) {
-        String sql = "update users set username = ? upassword = ? where userid = ?";
-        int update = jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), id);
+        String sql = "update users set username = ?, upassword = ?, exp = ? where userid = ?";
+        int update = jdbcTemplate.update(sql, user.getUsername(), user.getPassword(), user.getExp(), id);
         if(update == 1) {
             log.info("User updated: " + user.getUsername());
         }

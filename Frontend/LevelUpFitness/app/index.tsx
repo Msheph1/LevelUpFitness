@@ -1,13 +1,6 @@
 import { Button, Text, TextInput, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
-const whenClicked = async () => {
-  const result = await fetch("http://192.168.12.102:8080/hello");
-  const str = await result.text();
-  console.log(str);
-  alert(str);
-};
-
 const Index = () => {
   const [level, setLevel] = useState("10");
   const [weight, setWeight] = useState("170");
@@ -16,6 +9,31 @@ const Index = () => {
   const [heightUnits, setHeightUnits] = useState("Inches");
   const [bodyFat, setBodyFat] = useState("15");
   const [exp, setExp] = useState(5360);
+  const [username, setUsername] = useState("testname");
+
+  const checkin = async () => {
+    console.log("running");
+    const result = await fetch("http://192.168.12.102:8080/3/addexp/500", {
+      method: "POST",
+    });
+    loadUser();
+  };
+
+  const loadUser = async () => {
+    const result = await fetch("http://192.168.12.102:8080/3");
+    const json = await result.json();
+    //setWeight(json.weight);
+    //setWeightUnits(json.weightUnits);
+    //setHeight(json.height);
+    //setHeightUnits(json.heightUnits);
+    //setBodyFat(json.bodyFat);
+    const calcLevel = Math.floor(json.exp / 10000) + 1;
+    setLevel(calcLevel.toString());
+    const calcExp = json.exp % 10000;
+    setExp(calcExp);
+    setUsername(json.username);
+  };
+  loadUser();
 
   return (
     <View
@@ -24,9 +42,9 @@ const Index = () => {
         alignItems: "center",
       }}
     >
-      <Button title="test button" onPress={whenClicked}></Button>
+      <Button title="Daily Checkin" onPress={checkin}></Button>
+      <Text>Hello: {username}</Text>
       <Text>Level Up Fitness</Text>
-      <Text>Level: {level}</Text>
       <View>
         <svg width="200" height="400">
           <circle cx="100" cy="50" r="30" stroke="black" fill="none" />
@@ -80,6 +98,7 @@ const Index = () => {
           <Text>%</Text>
         </View>
       </View>
+      <Text>Level: {level}</Text>
       <View
         style={{
           display: "flex",

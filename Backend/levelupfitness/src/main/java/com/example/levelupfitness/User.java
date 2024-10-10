@@ -4,6 +4,7 @@ public class User {
     private int userId;
     private String username;
     private String password;
+    private int exp;
 
 
     public User() {
@@ -25,6 +26,10 @@ public class User {
         return password;
     }
 
+    public int getExp() {
+        return exp;
+    }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -35,9 +40,13 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
     
     @Override
     public String toString() {
-        return "UserId: " + userId + "\nUsername: " + username + "\nPasword: " + password;
+        return "UserId: " + userId + "\nUsername: " + username + "\nPasword: " + password + "\nExp: " + exp;
     }
 }
