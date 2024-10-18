@@ -1,5 +1,6 @@
 import { Button, Text, TextInput, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
+import Challenge from "./Challenge";
 
 const Index = () => {
   const [level, setLevel] = useState("10");
@@ -9,18 +10,20 @@ const Index = () => {
   const [heightUnits, setHeightUnits] = useState("Inches");
   const [bodyFat, setBodyFat] = useState("15");
   const [exp, setExp] = useState(5360);
-  const [username, setUsername] = useState("testname");
+  const [username, setUsername] = useState("Null");
+  const challengeOneContent: string = "this is a test challenge";
 
   const checkin = async () => {
     console.log("running");
-    const result = await fetch("http://192.168.12.102:8080/3/addexp/500", {
+    const result = await fetch("http://localhost:8080/3/addexp/500", {
       method: "POST",
     });
     loadUser();
   };
 
   const loadUser = async () => {
-    const result = await fetch("http://192.168.12.102:8080/3");
+    console.log("loading user");
+    const result = await fetch("http://localhost:8080/3");
     const json = await result.json();
     //setWeight(json.weight);
     //setWeightUnits(json.weightUnits);
@@ -135,9 +138,21 @@ const Index = () => {
               ]}
             />
           </View>
-          <Text style={{ textAlign: "center" }}>{exp}</Text>
         </View>
         <Text style={{ marginLeft: 10 }}>10000 EXP</Text>
+      </View>
+      <Text style={{ textAlign: "center" }}>{exp}</Text>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          padding: 20,
+          gap: 40,
+        }}
+      >
+        <Challenge content={challengeOneContent} xp={500} title="challenge1" />
+        <Challenge content={challengeOneContent} xp={1000} title="challenge2" />
+        <Challenge content={challengeOneContent} xp={750} title="challenge3" />
       </View>
     </View>
   );

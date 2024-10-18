@@ -26,7 +26,7 @@ public class UserController {
     @ResponseBody
     public User LoadUser(@PathVariable("userId") int id) 
     { 
-        
+        System.out.println("loading user");
         User selectedUser;
         Optional<User> optional = dao.get(id);
         selectedUser = optional.isPresent() ? optional.get() : null;
