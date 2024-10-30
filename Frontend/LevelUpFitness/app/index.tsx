@@ -1,6 +1,8 @@
 import { Button, Text, TextInput, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import Challenge from "./Challenge";
+import ExpBar from "./ExpBar";
+import Metrics from "./Metrics";
 
 const Index = () => {
   const [level, setLevel] = useState("10");
@@ -15,26 +17,34 @@ const Index = () => {
 
   const checkin = async () => {
     console.log("running");
-    const result = await fetch("http://localhost:8080/3/addexp/500", {
-      method: "POST",
-    });
-    loadUser();
+    try {
+      const result = await fetch("http://localhost:8080/3/addexp/500", {
+        method: "POST",
+      });
+      loadUser();
+    } catch (error) {
+      console.log("checkin failed");
+    }
   };
 
   const loadUser = async () => {
     console.log("loading user");
-    const result = await fetch("http://localhost:8080/3");
-    const json = await result.json();
-    //setWeight(json.weight);
-    //setWeightUnits(json.weightUnits);
-    //setHeight(json.height);
-    //setHeightUnits(json.heightUnits);
-    //setBodyFat(json.bodyFat);
-    const calcLevel = Math.floor(json.exp / 10000) + 1;
-    setLevel(calcLevel.toString());
-    const calcExp = json.exp % 10000;
-    setExp(calcExp);
-    setUsername(json.username);
+    try {
+      const result = await fetch("http://localhost:8080/3");
+      const json = await result.json();
+      //setWeight(json.weight);
+      //setWeightUnits(json.weightUnits);
+      //setHeight(json.height);
+      //setHeightUnits(json.heightUnits);
+      //setBodyFat(json.bodyFat);
+      const calcLevel = Math.floor(json.exp / 10000) + 1;
+      setLevel(calcLevel.toString());
+      const calcExp = json.exp % 10000;
+      setExp(calcExp);
+      setUsername(json.username);
+    } catch (error) {
+      console.log("fetch failed");
+    }
   };
   loadUser();
 
@@ -57,91 +67,14 @@ const Index = () => {
           <line x1="100" y1="200" x2="140" y2="300" stroke="black" />
         </svg>
       </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          width: "100%",
-          height: "10%",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            paddingRight: 20,
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Text>Weight</Text>
-          <TextInput style={styles.textInput} value={weight} />
-          <Text>{weightUnits}</Text>
-        </View>
-        <View
-          style={{
-            paddingRight: 20,
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Text>Height</Text>
-          <TextInput style={styles.textInput} value={height} />
-          <Text>{heightUnits}</Text>
-        </View>
-        <View
-          style={{
-            paddingRight: 20,
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
-          <Text>Body Fat</Text>
-          <TextInput style={styles.textInput} value={bodyFat} />
-          <Text>%</Text>
-        </View>
-      </View>
-      <Text>Level: {level}</Text>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          height: 20,
-          width: "100%",
-        }}
-      >
-        <Text style={{ marginRight: 10 }}>0 EXP</Text>
-        <View
-          style={{
-            display: "flex",
-            alignItems: "center",
-            width: "60%",
-          }}
-        >
-          <View
-            style={{
-              height: 20,
-              width: "100%",
-              backgroundColor: "#e0e0e0",
-              borderRadius: 10,
-              overflow: "hidden",
-            }}
-          >
-            <View
-              style={[
-                {
-                  height: "100%",
-                  backgroundColor: "#3b82f6",
-                },
-                { width: `${(exp / 10000) * 100}%` },
-              ]}
-            />
-          </View>
-        </View>
-        <Text style={{ marginLeft: 10 }}>10000 EXP</Text>
-      </View>
-      <Text style={{ textAlign: "center" }}>{exp}</Text>
+      <Metrics
+        weight={weight}
+        weightUnits={weightUnits}
+        height={height}
+        heightUnits={heightUnits}
+        bodyFat={bodyFat}
+      />
+      <ExpBar level={level} exp={exp} />
       <View
         style={{
           display: "flex",
@@ -157,15 +90,5 @@ const Index = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  textInput: {
-    textAlign: "center",
-    maxWidth: 50,
-    borderWidth: 2,
-    marginRight: 5,
-    marginLeft: 5,
-  },
-});
 
 export default Index;
