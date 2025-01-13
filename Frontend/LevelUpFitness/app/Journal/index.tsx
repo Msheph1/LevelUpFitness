@@ -1,13 +1,16 @@
-import { Button, Text, TextInput, View, StyleSheet } from "react-native";
+import { Button, Text, TextInput, View, StyleSheet, TouchableOpacity, Pressable } from "react-native";
+import Entry from "./entry";
 
 const Index = () => {
   return (
     <View>
-      <Text>testesdfdsi</Text>
-      <View style={{ width: 200 }}>
-        <Button title="+"></Button>
-      </View>
+    <Entry></Entry>
+    <Entry></Entry>
+    <Pressable >
+      <Text>+</Text>
+    </Pressable>
     </View>
+
   );
 };
 
