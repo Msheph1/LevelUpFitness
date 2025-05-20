@@ -1,12 +1,10 @@
 import { useState } from "react";
 
-import "./Exercise.css";
+import "./Style/Exercise.css";
 
 function Exercise() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className="cont">
       <h1>Name</h1>
       <p>
         Description Lorem ipsum dolor sit amet, consectetur adipisicing elit.
