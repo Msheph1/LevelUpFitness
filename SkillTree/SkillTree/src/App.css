@@ -1,16 +1,20 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
 
 .dragablearea {
   overflow: auto;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  user-select: none;
+  width: 100vw;
+  height: 100vh;
 }
 
 .dragablearea:hover {
@@ -18,17 +22,11 @@
 }
 
 .innerarea {
-  min-width: max-content;
-  min-height: max-content;
+  min-width: 10000px;
+  min-height: 10000px;
 }
 
 .dragablearea::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-.dragablearea::-webkit-scrollbar-thumb {
-  background-color: #ff0000;
-  border-radius: 10px;
-  max-width: 10;
+  width: 0px;
+  height: 0px;
 }
